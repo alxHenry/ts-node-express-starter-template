@@ -22,9 +22,9 @@
     "typescript": "^4.7.4"
   },
   "scripts": {
-    "start": "ts-node-dev src/app.ts",
+    "start": "node dist/app.js",
     "build": "tsc",
-    "deploy": "caprover deploy --default"
+    "deploy": "npm run build && git add . && git commit -m 'DEPLOYING-AUTO-COMMIT' && caprover deploy --default"
   },
   "repository": {
     "type": "git",
