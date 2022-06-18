@@ -1,10 +1,11 @@
 import express from "express";
 import logger from "morgan";
-import cors, { CorsOptions } from "cors";
+import cors from "cors";
+import type { CorsOptions } from "cors";
 import * as path from "path";
 import { index } from "./routes/index";
 
-import dotenv from "dotenv";
+import * as dotenv from "dotenv";
 dotenv.config();
 
 const port = process.env.PORT || 3000;
@@ -12,16 +13,12 @@ const port = process.env.PORT || 3000;
 const originWhitelist = [`http://localhost:${port}`];
 const corsConfig: CorsOptions = {
   origin: (origin, callback) => {
-    if (origin == null) {
-      callback(new Error("No origin supplied"));
+    if (origin == null || originWhitelist.indexOf(origin) !== -1) {
+      callback(null, true);
       return;
     }
 
-    if (originWhitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
+    callback(new Error("Not allowed by CORS"));
   },
   optionsSuccessStatus: 200,
 };
@@ -34,3 +31,7 @@ app.use(cors(corsConfig));
 
 app.use(express.static(path.join(__dirname, "../public")));
 app.use("/", index);
+
+app.listen(port, () => {
+  console.log(`Server is listening on port ${port}`);
+});

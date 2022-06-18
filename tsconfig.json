@@ -1,3 +1,16 @@
 {
-  "extends": "@tsconfig/recommended/tsconfig.json"
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "outDir": "./dist",
+    "removeComments": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2017",
+  },
+  "include": ["src/**/*.ts"]
 }
