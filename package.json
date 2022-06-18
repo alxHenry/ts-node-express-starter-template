@@ -24,7 +24,7 @@
   "scripts": {
     "start": "node dist/app.js",
     "build": "tsc",
-    "deploy": "npm run build && git add . && git commit -m 'DEPLOYING-AUTO-COMMIT' && caprover deploy --default"
+    "deploy": "npm run build && git add dist && git commit -m 'DEPLOYING-AUTO-COMMIT' && caprover deploy --default"
   },
   "repository": {
     "type": "git",

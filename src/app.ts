@@ -33,6 +33,5 @@ app.use(express.static(path.join(__dirname, "../public")));
 app.use("/", index);
 
 app.listen(port, () => {
-  // Test
   console.log(`Server is listening on port ${port}`);
 });
