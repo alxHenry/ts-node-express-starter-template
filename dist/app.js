@@ -38,16 +38,11 @@ const port = process.env.PORT || 3000;
 const originWhitelist = [`http://localhost:${port}`];
 const corsConfig = {
     origin: (origin, callback) => {
-        if (origin == null) {
-            callback(new Error("No origin supplied"));
+        if (origin == null || originWhitelist.indexOf(origin) !== -1) {
+            callback(null, true);
             return;
         }
-        if (originWhitelist.indexOf(origin) !== -1) {
-            callback(null, true);
-        }
-        else {
-            callback(new Error("Not allowed by CORS"));
-        }
+        callback(new Error("Not allowed by CORS"));
     },
     optionsSuccessStatus: 200,
 };
@@ -58,4 +53,7 @@ exports.app.use(express_1.default.json());
 exports.app.use((0, cors_1.default)(corsConfig));
 exports.app.use(express_1.default.static(path.join(__dirname, "../public")));
 exports.app.use("/", index_1.index);
+exports.app.listen(port, () => {
+    console.log(`Server is listening on port ${port}`);
+});
 //# sourceMappingURL=app.js.map
